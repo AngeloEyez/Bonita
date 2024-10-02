@@ -18,6 +18,9 @@ import { Todo, Meta } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
 
 import { ipc } from 'app/bonita/ipc/ipc-api';
+import log from 'electron-log/renderer';
+log.transports.console.format =
+  '{h}:{i}:{s}.{ms}[{processType}][{level}] {text}';
 
 defineOptions({
   name: 'IndexPage',

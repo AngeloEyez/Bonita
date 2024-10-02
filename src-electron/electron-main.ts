@@ -10,6 +10,13 @@ import {
 } from '../bonita/ipc/ipc-types';
 import { getErrorMsg } from 'app/bonita/utils/utils';
 
+import log from 'electron-log/main';
+log.initialize();
+log.transports.console.format =
+  '{h}:{i}:{s}.{ms}[{processType}][{level}] {text}';
+
+//
+
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
 
@@ -74,6 +81,7 @@ ipcMain.handle(
 
     switch (action) {
       case 'get-app-version':
+        log.log(app.getVersion());
         return { status: 'success', content: app.getVersion() };
 
       case 'perform-calculation':
