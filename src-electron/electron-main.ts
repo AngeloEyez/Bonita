@@ -1,6 +1,14 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import os from 'os';
+
+// BONITA
+import {
+  IPCAction,
+  IPCActionDataMap,
+  IPCResponse,
+} from '../bonita/ipc/ipc-types';
+import { getErrorMsg } from 'app/bonita/utils/utils';
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
@@ -53,3 +61,44 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+// BONITA
+// 封裝 IPC API
+ipcMain.handle(
+  'api-action',
+  async (
+    _event,
+    args: { action: IPCAction; data: IPCActionDataMap[IPCAction] }
+  ) => {
+    const { action, data } = args;
+
+    switch (action) {
+      case 'get-app-version':
+        return { status: 'success', content: app.getVersion() };
+
+      case 'perform-calculation':
+        return await handleReadExcel(data);
+
+      default:
+        throw new Error(`Unknown action: ${action}`);
+    }
+  }
+);
+
+async function handleReadExcel(
+  data: IPCActionDataMap[IPCAction]
+): Promise<IPCResponse> {
+  try {
+    if (!data) {
+      throw new Error('No data provided for perform-calculation');
+    }
+    const { a, b } = data;
+    const res: IPCResponse = {
+      status: 'success',
+      content: a + b,
+    };
+    return res;
+  } catch (error) {
+    return { status: 'error', message: getErrorMsg(error) };
+  }
+}
