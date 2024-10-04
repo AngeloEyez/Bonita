@@ -9,7 +9,7 @@ import {
   IPCResponse,
 } from '../bonita/ipc/ipc-types';
 import { getErrorMsg } from 'app/bonita/utils/utils';
-import log from 'app/bonita/utils/logger/logger';
+import log from 'app/bonita/utils/logger';
 
 
 //

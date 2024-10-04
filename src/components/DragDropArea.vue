@@ -18,7 +18,8 @@
 
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
-import log from 'app/bonita/utils/logger/logger';
+import log from 'app/bonita/utils/logger';
+log.log('dragdroparea')
 
 const isDragging = ref(false);
 const emit = defineEmits(['files-dropped']);
