@@ -2,7 +2,11 @@
   <div>
     <p>{{ title }}</p>
     <ul>
-      <li v-for="todo in todos" :key="todo.id" @click="increment">
+      <li
+        v-for="todo in todos"
+        :key="todo.id"
+        @click="increment"
+      >
         {{ todo.id }} - {{ todo.content }}
       </li>
     </ul>
@@ -29,8 +33,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const clickCount = ref(0);
 function increment() {
-  clickCount.value += 1;
-  return clickCount.value;
+  clickCount.value += 2;
+  //return clickCount.value;
 }
 
 const todoCount = computed(() => props.todos.length);

@@ -9,11 +9,8 @@ import {
   IPCResponse,
 } from '../bonita/ipc/ipc-types';
 import { getErrorMsg } from 'app/bonita/utils/utils';
+import log from 'app/bonita/utils/logger/logger';
 
-import log from 'electron-log/main';
-log.initialize();
-log.transports.console.format =
-  '{h}:{i}:{s}.{ms}[{processType}][{level}] {text}';
 
 //
 
@@ -28,8 +25,8 @@ function createWindow() {
    */
   mainWindow = new BrowserWindow({
     icon: path.resolve(__dirname, 'icons/icon.png'), // tray icon
-    width: 1000,
-    height: 600,
+    width: 1200,
+    height: 800,
     useContentSize: true,
     webPreferences: {
       contextIsolation: true,

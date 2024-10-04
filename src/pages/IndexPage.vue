@@ -11,6 +11,20 @@
       Calculate 2 + 3
     </button>
     <p>Calculation Result: {{ calcResult }}</p>
+
+    <h2>Excel File Uploader</h2>
+    <drag-drop-area @files-dropped="handleFilesDropped" />
+    <div v-if="fileNames.length">
+      <h3>Uploaded Files:</h3>
+      <ul>
+        <li
+          v-for="(fileName, index) in fileNames"
+          :key="index"
+        >
+          {{ fileName }}
+        </li>
+      </ul>
+    </div>
   </q-page>
 </template>
 
@@ -18,11 +32,10 @@
 import { ref } from 'vue';
 import { Todo, Meta } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
+import DragDropArea from 'components/DragDropArea.vue';
 
 import { ipc } from 'app/bonita/ipc/ipc-api';
-import log from 'electron-log/renderer';
-log.transports.console.format =
-  '{h}:{i}:{s}.{ms}[{processType}][{level}] {text}';
+
 
 defineOptions({
   name: 'IndexPage',
@@ -54,6 +67,15 @@ const todos = ref<Todo[]>([
 const meta = ref<Meta>({
   totalCount: 1200,
 });
+
+
+const fileNames = ref<string[]>([]);
+
+// 處理使用者拖放的檔案
+const handleFilesDropped = (files: File[]) => {
+  fileNames.value = files.map(file => file.name);
+};
+
 
 const appVersion = ref<string>('');
 const calcResult = ref<number | null>(null);
