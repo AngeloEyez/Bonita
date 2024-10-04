@@ -5,9 +5,11 @@
       active
       :todos="todos"
       :meta="meta"
-    ></example-component>
+    />
     <p>App Version: {{ appVersion }}</p>
-    <button @click="calculate">Calculate 2 + 3</button>
+    <button @click="calculate">
+      Calculate 2 + 3
+    </button>
     <p>Calculation Result: {{ calcResult }}</p>
   </q-page>
 </template>

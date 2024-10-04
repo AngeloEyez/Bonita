@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// bonita/ipc/ipc-types.ts
 
 export type IPCAction = 'get-app-version' | 'perform-calculation';
 
@@ -22,3 +22,4 @@ export interface IPCResponse {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 // eslint-disable-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */

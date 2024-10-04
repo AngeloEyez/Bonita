@@ -1,8 +1,12 @@
 {
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false, // required
+  "editor.formatOnPaste": true, // optional
+  "editor.formatOnSave": true, // optional
+  "editor.formatOnSaveMode": "file", // required to format on save
+  //"editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "editor.codeActionsOnSave": [
     "source.fixAll.eslint"
   ],
@@ -12,5 +16,7 @@
     "typescript",
     "vue"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.autoSave": "onFocusChange", // optional but recommended
+  "vs-code-prettier-eslint.prettierLast": false // set as "true" to run 'prettier' last not first
 }

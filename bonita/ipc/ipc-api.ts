@@ -1,4 +1,4 @@
-// src-bonita/ipc/ipc-api.ts
+// bonita/ipc/ipc-api.ts
 
 import { IPCAction, IPCActionDataMap, IPCResponse } from './ipc-types';
 

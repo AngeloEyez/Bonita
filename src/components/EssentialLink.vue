@@ -14,14 +14,16 @@
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label caption>
+        {{ caption }}
+      </q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
 <script setup lang="ts">
 defineOptions({
-  name: 'EssentialLink'
+  name: 'EssentialLink',
 });
 
 export interface EssentialLinkProps {
@@ -29,7 +31,7 @@ export interface EssentialLinkProps {
   caption?: string;
   link?: string;
   icon?: string;
-};
+}
 
 withDefaults(defineProps<EssentialLinkProps>(), {
   caption: '',
