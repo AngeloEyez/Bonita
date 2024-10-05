@@ -12,7 +12,7 @@
     </button>
     <p>Calculation Result: {{ calcResult }}</p>
 
-    <h2>Excel File Uploader</h2>
+    <h4>Excel File Uploader</h4>
     <drag-drop-area @files-dropped="handleFilesDropped" />
     <div v-if="fileNames.length">
       <h3>Uploaded Files:</h3>
@@ -49,18 +49,6 @@ const todos = ref<Todo[]>([
   {
     id: 2,
     content: 'ct2',
-  },
-  {
-    id: 3,
-    content: 'ct3',
-  },
-  {
-    id: 4,
-    content: 'ct4',
-  },
-  {
-    id: 5,
-    content: 'ct5',
   },
 ]);
 

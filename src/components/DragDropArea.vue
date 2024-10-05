@@ -7,20 +7,14 @@
     @drop.prevent="handleDrop"
     @dragenter="isDragging = true"
   >
-    <p v-if="isDragging">
-      Release to upload files
-    </p>
-    <p v-else>
-      Drag and drop .xls or .xlsx files here
-    </p>
+    <p v-if="isDragging">Release to upload files</p>
+    <p v-else>Drag and drop .xls or .xlsx files here</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
 import log from 'app/bonita/utils/logger';
-log.log('dragdroparea')
-
 const isDragging = ref(false);
 const emit = defineEmits(['files-dropped']);
 
@@ -30,8 +24,10 @@ const handleDrop = (event: DragEvent) => {
   const files = event.dataTransfer?.files;
 
   if (files && files.length > 0) {
-    const validFiles = Array.from(files).filter(file =>
-      ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type)
+    const validFiles = Array.from(files).filter((file) =>
+      ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(
+        file.type
+      )
     );
     if (validFiles.length > 0) {
       emit('files-dropped', validFiles);
