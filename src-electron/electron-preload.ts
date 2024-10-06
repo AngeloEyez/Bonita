@@ -30,17 +30,10 @@
 
 // BONITA
 import { contextBridge, ipcRenderer } from 'electron';
-import {
-  IPCAction,
-  IPCActionDataMap,
-  IPCResponse,
-} from '../bonita/ipc/ipc-types';
+import { IPCAction, IPCActionDataMap, IPCResponse } from '../bonita/ipc/ipc-types';
 
 contextBridge.exposeInMainWorld('bonitaAPI', {
-  sendAction: async <A extends IPCAction>(
-    action: A,
-    data: IPCActionDataMap[A]
-  ): Promise<IPCResponse> => {
-    return ipcRenderer.invoke('api-action', { action, data });
+  sendAction: async <A extends IPCAction>(action: A, data: IPCActionDataMap[A]): Promise<IPCResponse> => {
+    return ipcRenderer.invoke('Gapi-action', { action, data });
   },
 });
