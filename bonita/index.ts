@@ -4,14 +4,17 @@ import { IPCAction, IPCActionDataMap, IPCResponse } from 'app/bonita/ipc/ipc-typ
 import log from 'app/bonita/utils/logger';
 //import { handleReadExcel } from 'app/bonita/excel-handler'; // Excel 處理邏輯
 import { getErrorMsg } from 'app/bonita/utils/utils';
-import Datastore from '@seald-io/nedb';
+import Datastore from 'nedb-promises';
+import path from 'path';
 
 class BonitaApp {
   async initialize() {
     this._setupIpcHandlers();
     log.log('BonitaApp initialized');
 
-    const db = new Datastore({ filename: 'C:/temp/test.db', autoload: true });
+    const db = Datastore.create({ filename: 'C:/temp/test.db', autoload: true });
+    log.log(app.getPath('exe'));
+    log.log(path.join(app.getPath('exe'), '../conf.db'));
   }
 
   // 封裝 IPC API
