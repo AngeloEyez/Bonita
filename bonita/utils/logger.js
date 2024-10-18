@@ -11,28 +11,26 @@ import log from 'electron-log';
 import { maxDepth, toJSON } from 'electron-log/src/node/transforms/object';
 
 const isMain = typeof process === 'object' && process.type === 'browser';
-if (!isMain) { // 在渲染進程
-
+if (!isMain) {
+  // 在渲染進程
   //customizeLog();
-
-} else { // 在主進程
+} else {
+  // 在主進程
 
   log.initialize();
   //customizeLog();
-
 }
-
 
 //设置格式
 log.transports.console.format = '{h}:{i}:{s}.{ms}[{processType}][{level}] {text}';
 
- log.hooks.push((message, transport) => {
-      if (transport !== log.transports.console) {
-      return message;
-    }
-   message.variables.processType = message.variables.processType === 'main' ? '[M]' : '[R]';
-   return message
- });
+log.hooks.push((message, transport) => {
+  if (transport !== log.transports.console) {
+    return message;
+  }
+  message.variables.processType = message.variables.processType === 'main' ? 'M' : 'R';
+  return message;
+});
 
 // Echo console.log() etc. to the terminal using electron logger.
 Object.assign(console, log.functions);
@@ -94,14 +92,14 @@ async function customizeLog() {
 
     // Build strings ready for output
     const colorize = color[level];
-    const lvl = padString(level,7);
+    const lvl = padString(level, 7);
     const formattedTime = date.toLocaleTimeString('en-US', {
-    hour12: false, // 使用 24 小時制
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    fractionalSecondDigits: 3 // 毫秒顯示三位
-  });
+      hour12: false, // 使用 24 小時制
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      fractionalSecondDigits: 3, // 毫秒顯示三位
+    });
 
     // Tag entries with their process type:
     //   - M: main

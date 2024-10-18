@@ -1,5 +1,7 @@
 <template>
   <q-page class="row items-center justify-evenly">
+    <ExcelDropZone />
+
     <example-component
       title="Example component"
       active
@@ -7,9 +9,7 @@
       :meta="meta"
     />
     <p>App Version: {{ appVersion }}</p>
-    <button @click="calculate">
-      Calculate 2 + 3
-    </button>
+    <button @click="calculate">Calculate 2 + 3</button>
     <p>Calculation Result: {{ calcResult }}</p>
 
     <h4>Excel File Uploader</h4>
@@ -29,13 +29,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import { Todo, Meta } from 'components/models';
+import ExcelDropZone from 'src/components/ExcelDropZone.vue';
 import ExampleComponent from 'components/ExampleComponent.vue';
 import DragDropArea from 'components/DragDropArea.vue';
 
 import { ipc } from 'app/bonita/ipc/ipc-api';
 
+import { Bonita } from 'app/bonita/bonitaCore';
+const bonita = new Bonita();
+provide('bonita', bonita);
+bonita.test('indexPage');
 
 defineOptions({
   name: 'IndexPage',
@@ -56,14 +61,14 @@ const meta = ref<Meta>({
   totalCount: 1200,
 });
 
-
 const fileNames = ref<string[]>([]);
 
 // 處理使用者拖放的檔案
-const handleFilesDropped = (files: File[]) => {
-  fileNames.value = files.map(file => file.name);
+const handleFilesDropped = async (files: File[]) => {
+  //fileNames.value = files.map(file => file.name);
+  const res = await ipc.send('read-Excel', files);
+  fileNames.value = [res.status];
 };
-
 
 const appVersion = ref<string>('');
 const calcResult = ref<number | null>(null);

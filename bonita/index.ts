@@ -2,17 +2,15 @@
 import { app, ipcMain } from 'electron';
 import { IPCAction, IPCActionDataMap, IPCResponse } from 'app/bonita/ipc/ipc-types';
 import log from 'app/bonita/utils/logger';
-//import { handleReadExcel } from 'app/bonita/excel-handler'; // Excel 處理邏輯
 import { getErrorMsg } from 'app/bonita/utils/utils';
-import Datastore from 'nedb-promises';
+
 import path from 'path';
 
-class BonitaApp {
+export class BonitaApp {
   async initialize() {
     this._setupIpcHandlers();
     log.log('BonitaApp initialized');
 
-    const db = Datastore.create({ filename: 'C:/temp/test.db', autoload: true });
     log.log(app.getPath('exe'));
     log.log(path.join(app.getPath('exe'), '../conf.db'));
   }
@@ -38,6 +36,9 @@ class BonitaApp {
               return { status: 'error', message: getErrorMsg(error) };
             }
 
+          case 'read-Excel':
+            return { status: 'success', content: 'read-Excel' };
+
           default:
             throw new Error(`Unknown action: ${action}`);
         }
@@ -62,5 +63,5 @@ async function handleReadExcel(data: IPCActionDataMap[IPCAction]): Promise<IPCRe
   }
 }
 
-const bonita = new BonitaApp();
-export default bonita;
+// interface Bonita extends ExcelMixin {}
+// applyMixins(Bonita, [ExcelMixin]);

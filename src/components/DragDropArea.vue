@@ -20,6 +20,7 @@ const emit = defineEmits(['files-dropped']);
 
 // 處理檔案放下時的事件
 const handleDrop = (event: DragEvent) => {
+  event.preventDefault();
   isDragging.value = false;
   const files = event.dataTransfer?.files;
 

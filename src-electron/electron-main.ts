@@ -3,7 +3,8 @@ import path from 'path';
 import os from 'os';
 
 // BONITA
-import bonita from 'app/bonita'; // 引入 Bonita 入口
+import { BonitaApp } from 'app/bonita'; // 引入 Bonita 入口
+const bonitaapp = new BonitaApp();
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
@@ -45,7 +46,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
-  bonita.initialize(); // 初始化 BonitaApp
+  bonitaapp.initialize(); // 初始化 BonitaApp
 });
 
 app.on('window-all-closed', () => {

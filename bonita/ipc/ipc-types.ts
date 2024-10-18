@@ -1,10 +1,11 @@
 // bonita/ipc/ipc-types.ts
 
-export type IPCAction = 'get-app-version' | 'perform-calculation';
+export type IPCAction = 'get-app-version' | 'perform-calculation' | 'read-Excel';
 
 export interface IPCActionDataMap {
   'get-app-version': undefined;
   'perform-calculation': { a: number; b: number };
+  'read-Excel': File[];
 }
 
 export interface IPCActionResponseMap {
